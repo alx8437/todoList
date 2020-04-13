@@ -9,10 +9,11 @@ class App extends React.Component {
     tasks = [
         {title: "CSS", isDone: true, priority: "low"},
         {title: "JS", isDone: false, priority: "hight"},
-        {title: "ReactJS", isDone: false, priority: "medium"},
+        {title: "ReactJS", isDone: false, priority: "hight"},
         {title: "JQuery", isDone: true, priority: "low"},
         {title: "Patterns", isDone: true, priority: "low"}
     ];
+
 
     filterValue = "All";
 
