@@ -4,6 +4,7 @@ import './App.css';
 import TodoListHeader from "./TodoListHeader";
 import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class App extends React.Component {
                         <h3 className="todoList-header__title">What to Learn</h3>
                         <div className="todoList-newTaskForm">
                             <input ref={this.newTaskTitleRef} type="text" placeholder="New task name"/>
-                            <button onClick={ this.onAddTaskList }>Add</button>
+                            <button onClick={this.onAddTaskList}>Add</button>
                         </div>
                     </div>
                     {/*<TodoListHeader />*/}
@@ -53,4 +54,3 @@ class App extends React.Component {
 }
 
 export default App;
-

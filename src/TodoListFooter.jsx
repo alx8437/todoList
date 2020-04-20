@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TodoListFooter extends React.Component {
+
     render = () => {
 
         let classForAll = this.props.filterValue === "All" ? "filter-active" : "";
@@ -18,3 +20,6 @@ class TodoListFooter extends React.Component {
 }
 
 export default TodoListFooter;
+TodoListFooter.propTypes = {
+
+};
