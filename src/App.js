@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './App.css';
 import TodoListHeader from "./TodoListHeader";
@@ -7,10 +6,7 @@ import TodoListFooter from "./TodoListFooter";
 import PropTypes from 'prop-types';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.newTaskTitleRef = React.createRef()
-    }
+
 
     state = {
         tasks: [
@@ -23,9 +19,7 @@ class App extends React.Component {
         filterValue: "All"
     };
 
-    onAddTaskList = () => {
-        let newText = this.newTaskTitleRef.current.value;
-        this.newTaskTitleRef.current.value = '';
+    addTaskList = (newText) => {
         let newTask = {title: newText, isDone: false, priority: "low"};
         let newTasks = [...this.state.tasks, newTask];
         this.setState( {
@@ -37,14 +31,9 @@ class App extends React.Component {
         return (
             <div className="App">
                 <div className="todoList">
-                    <div className="todoList-header">
-                        <h3 className="todoList-header__title">What to Learn</h3>
-                        <div className="todoList-newTaskForm">
-                            <input ref={this.newTaskTitleRef} type="text" placeholder="New task name"/>
-                            <button onClick={this.onAddTaskList}>Add</button>
-                        </div>
-                    </div>
-                    {/*<TodoListHeader />*/}
+                    <TodoListHeader
+                        addTaskList={this.addTaskList}
+                    />
                     <TodoListTasks tasks={this.state.tasks}/>
                     <TodoListFooter filterValue={this.state.filterValue}/>
                 </div>

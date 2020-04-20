@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 class TodoListFooter extends React.Component {
 
@@ -11,7 +10,10 @@ class TodoListFooter extends React.Component {
 
         return (
             <div className="todoList-footer">
-                <button className={classForAll}>All</button>
+                <button
+                    className={classForAll}
+                    onClick={() => this.props.changeFilter("All")}
+                >All</button>
                 <button className={classForCompleted}>Completed</button>
                 <button className={classForActive}>Active</button>
             </div>
@@ -20,6 +22,3 @@ class TodoListFooter extends React.Component {
 }
 
 export default TodoListFooter;
-TodoListFooter.propTypes = {
-
-};
