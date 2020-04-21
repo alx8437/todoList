@@ -39,9 +39,9 @@ class App extends React.Component {
               return {...t, isDone: isDone}
           }
           return t;
-          this.setState({
-              tasks:newTasks
-          })
+      });
+      this.setState({
+          tasks: newTasks
       })
     };
 
