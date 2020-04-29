@@ -18,3 +18,12 @@
 .filter-active {
   background-color: #802e68;
 }
+
+.hideFooterButton {
+  margin: 15px 5px 0 0 ;
+  background-color: #ffde6d;
+}
+
+.error {
+  border-color: red;
+}
