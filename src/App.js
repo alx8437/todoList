@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 class App extends React.Component {
 
-
     state = {
         tasks: [
             {title: "CSS", isDone: true, priority: "low"},
