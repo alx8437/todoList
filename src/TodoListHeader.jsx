@@ -1,29 +1,35 @@
-  import React from 'react';
+import React from 'react';
 
 class TodoListHeader extends React.Component {
     constructor() {
         super();
-        this.newTaskRef = React.createRef()
+        // this.newTaskRef = React.createRef()
     }
 
     state = {
-      error: false
+        error: false,
+        inputValue: ''
     };
 
+    newMessage = (e) => {
+        this.setState({inputValue: e.currentTarget.value});
+        this.setState({
+            error: false
+        })
+    }
 
     onAddTaskList = () => {
-        let newText = this.newTaskRef.current.value.trim();
+        let newText = this.state.inputValue.trim();
         if (newText === "") {
             this.setState({
                 error: true
             })
         } else {
             this.props.addTaskList(newText);
-            this.newTaskRef.current.value = '';
+            this.state.inputValue = '';
         }
 
     };
-
 
 
     render = () => {
@@ -35,15 +41,18 @@ class TodoListHeader extends React.Component {
                 <h3 className="todoList-header__title">What to Learn</h3>
                 <div className="todoList-newTaskForm">
                     <input
+                        value={this.state.inputValue}
+                        onChange={this.newMessage}
                         className={classToError}
                         type="text"
                         placeholder="New task name"
-                        ref={this.newTaskRef}
+                        // ref={this.newTaskRef}
 
                     />
                     <button
                         onClick={this.onAddTaskList}
-                    >Add</button>
+                    >Add
+                    </button>
                 </div>
             </div>
         )
