@@ -9,7 +9,7 @@ class TodoListHeader extends React.Component {
     state = {
         error: false,
         inputValue: ''
-    };
+    }
 
     newMessage = (e) => {
         this.setState({inputValue: e.currentTarget.value});
@@ -28,8 +28,13 @@ class TodoListHeader extends React.Component {
             this.props.addTaskList(newText);
             this.state.inputValue = '';
         }
+    }
 
-    };
+    onKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.onAddTaskList();
+        }
+    }
 
 
     render = () => {
@@ -46,6 +51,7 @@ class TodoListHeader extends React.Component {
                         className={classToError}
                         type="text"
                         placeholder="New task name"
+                        onKeyPress={this.onKeyPress}
                         // ref={this.newTaskRef}
 
                     />

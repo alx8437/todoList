@@ -14,7 +14,7 @@ class TodoListTasks extends React.Component {
         };
         let taskElements = this.props.tasks.map(myFn);
         return (
-            <div className="todoList-tasks">
+            <div className="todoList-tasks.isDone">
 
                 { taskElements }
 
