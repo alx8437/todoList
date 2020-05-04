@@ -3,7 +3,6 @@ import React from 'react';
 class TodoListHeader extends React.Component {
     constructor() {
         super();
-        // this.newTaskRef = React.createRef()
     }
 
     state = {
@@ -51,10 +50,7 @@ class TodoListHeader extends React.Component {
                         className={classToError}
                         type="text"
                         placeholder="New task name"
-                        onKeyPress={this.onKeyPress}
-                        // ref={this.newTaskRef}
-
-                    />
+                        onKeyPress={this.onKeyPress}                    />
                     <button
                         onClick={this.onAddTaskList}
                     >Add
