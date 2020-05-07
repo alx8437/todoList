@@ -33,7 +33,11 @@ class App extends React.Component {
         if (stateAsString != null) {
             state = JSON.parse(stateAsString)
         }
-        this.setState(state)
+        this.setState(state, ()=> this.state.tasks.forEach(t => {
+            if (t.id > this.nextTaskId) {
+                this.nextTaskId = t.id + 1;
+            }
+        }))
 
     }
 
@@ -72,13 +76,13 @@ class App extends React.Component {
 
 
     changeStatus = (taskID, isDone) => {
-        this.changeTask(taskID, {isDone: isDone})
+        this.changeTask(taskID, {isDone})
     };
 
 
 
     changeStatusTitle = (taskID, title) => {
-        this.changeTask(taskID, {title: title})
+        this.changeTask(taskID, {title})
     };
 
 
