@@ -1,14 +1,17 @@
 .App {
-
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .todoList {
-  width: 500px;
-  margin: 0 auto;
+    width: 500px;
+    margin: 0 auto;
 }
 
 .todoList > div {
-  padding: 10px;
+    padding: 10px;
 }
 
 .todoList-task {
@@ -16,18 +19,18 @@
 }
 
 .filter-active {
-  background-color: #802e68;
+    background-color: #802e68;
 }
 
 .hideFooterButton {
-  margin: 15px 5px 0 0 ;
-  background-color: #ffde6d;
+    margin: 15px 5px 0 0;
+    background-color: #ffde6d;
 }
 
 .error {
-  border-color: red;
+    border-color: red;
 }
 
 .todoList-task.done {
-  opacity: 0.5;
+    opacity: 0.5;
 }

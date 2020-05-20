@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TodoListHeader extends React.Component {
+class AddNewItemForm extends React.Component {
     constructor() {
         super();
     }
@@ -10,28 +10,28 @@ class TodoListHeader extends React.Component {
         inputValue: ''
     }
 
-    newMessage = (e) => {
+    newInputValue = (e) => {
         this.setState({inputValue: e.currentTarget.value});
         this.setState({
             error: false
         })
     }
 
-    onAddTaskList = () => {
+    onAddItemClick = () => {
         let newText = this.state.inputValue.trim();
         if (newText === "") {
             this.setState({
                 error: true
             })
         } else {
-            this.props.addTaskList(newText);
+            this.props.addItem(newText);
             this.state.inputValue = '';
         }
     }
 
     onKeyPress = (e) => {
         if (e.key === "Enter") {
-            this.onAddTaskList();
+            this.onAddItemClick();
         }
     }
 
@@ -42,17 +42,17 @@ class TodoListHeader extends React.Component {
 
         return (
             <div className="todoList-header">
-                <h3 className="todoList-header__title">What to Learn</h3>
                 <div className="todoList-newTaskForm">
                     <input
                         value={this.state.inputValue}
-                        onChange={this.newMessage}
+                        onChange={this.newInputValue}
                         className={classToError}
                         type="text"
-                        placeholder="New task name"
-                        onKeyPress={this.onKeyPress}                    />
+                        placeholder="New item name"
+                        onKeyPress={this.onKeyPress}
+                    />
                     <button
-                        onClick={this.onAddTaskList}
+                        onClick={this.onAddItemClick}
                     >Add
                     </button>
                 </div>
@@ -61,4 +61,4 @@ class TodoListHeader extends React.Component {
     }
 }
 
-export default TodoListHeader;
+export default AddNewItemForm;
