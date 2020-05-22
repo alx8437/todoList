@@ -23,7 +23,7 @@ class TodoList extends React.Component {
     saveState = () => {
         let stateAsSting = JSON.stringify(this.state);
         localStorage.setItem("ourstatetask-" + this.props.id, stateAsSting)
-    }
+    };
 
     restoreState = () => {
         let state = {
