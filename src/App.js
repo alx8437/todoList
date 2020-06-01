@@ -1,6 +1,8 @@
 import React from "react";
 import TodoList from "./TodoList";
 import AddNewItemForm from "./AddNewItemForm";
+import {connect} from "react-redux";
+import {addTodoListActionCreater} from "./store";
 
 
 
@@ -13,13 +15,15 @@ class App extends React.Component {
     newTodoListId = 0;
 
     addTodoList = (title) => {
+
         let newTodoList = {id: this.newTodoListId, title: title};
-        let newTodoLists = [...this.state.todolists, newTodoList];
-        this.setState((state) => {
-            return {todolists: newTodoLists}
-        }, this.stateSaveLocalStorage);
         this.newTodoListId += 1
+
+        this.props.addTodoList(newTodoList)
+
     };
+
+
 
     stateSaveLocalStorage = () => {
         let stateAsString = JSON.stringify(this.state);
@@ -48,7 +52,7 @@ class App extends React.Component {
 
     render() {
 
-        let todolists = this.state.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} />)
+        let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} />)
 
         return (
             <div>
@@ -64,5 +68,23 @@ class App extends React.Component {
 
 }
 
-export default App
+const mapStateToProps = (state) => {
+    return {
+        todolists: state.todolists
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTodoList: (newTodoList) => {
+            dispatch(addTodoListActionCreater(newTodoList))
+        }
+    }
+
+
+};
+
+
+const ContainerApp = connect(mapStateToProps, mapDispatchToProps)(App)
+export default ContainerApp;
 
