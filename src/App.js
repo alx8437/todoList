@@ -2,7 +2,7 @@ import React from "react";
 import TodoList from "./TodoList";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
-import {addTodoListActionCreater} from "./store";
+import {addTodoListActionCreator} from "./store";
 
 
 
@@ -77,7 +77,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTodoList: (newTodoList) => {
-            dispatch(addTodoListActionCreater(newTodoList))
+            dispatch(addTodoListActionCreator(newTodoList))
         }
     }
 

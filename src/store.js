@@ -1,7 +1,8 @@
 import {createStore} from "redux";
 
 const ADD_TODOLIST = "ADD_TODOLIST";
-const ADD_TASK = "ADD_TASK"
+const ADD_TASK = "ADD_TASK";
+const CHANGE_TASK = "CHANGE_TASK";
 
 const initialState = {
     todolists: [
@@ -27,6 +28,25 @@ const reducer = (state = initialState, action) => {
                     }
                 })]
             }
+        case CHANGE_TASK:
+            return {
+                ...state,
+                todolists: [...state.todolists.map(tl => {
+                    if (tl.id === action.todoListId) {
+                        return {...tl, tasks: [...tl.tasks.map(task => {
+                            if (task.id !== action.taskID) {
+                                return task
+                            } else {
+                                return {
+                                    ...task, ...action.obj
+                                }
+                            }
+                            })]}
+                    } else {
+                        return tl
+                    }
+                })]
+            }
         default:
             return state
     }
@@ -34,7 +54,10 @@ const reducer = (state = initialState, action) => {
 };
 
 
-export const addTodoListActionCreater = (newTodoList) => {
+
+// ActionCreators
+
+export const addTodoListActionCreator = (newTodoList) => {
     return {
         type: ADD_TODOLIST,
         newTodoList
@@ -42,12 +65,21 @@ export const addTodoListActionCreater = (newTodoList) => {
 
 };
 
-export const addTaskActionCreater = (todoListId, newTask) => {
+export const addTaskActionCreator = (todoListId, newTask) => {
    return {
        type: ADD_TASK,
        todoListId,
        newTask
    }
+}
+
+export const changeTaskActionCreator = (todoListId, taskID, obj) => {
+    return {
+        type: CHANGE_TASK,
+        todoListId,
+        taskID,
+        obj
+    }
 }
 
 

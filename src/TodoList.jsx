@@ -5,7 +5,7 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
-import {addTaskActionCreater} from "./store";
+import {addTaskActionCreator, changeTaskActionCreator} from "./store";
 
 
 
@@ -50,12 +50,7 @@ class TodoList extends React.Component {
     addTask = (newText) => {
         let todoListId = this.props.id
         let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: "low"};
-        // let newTasks = [...this.state.tasks, newTask];
         this.nextTaskId += 1
-
-        // this.setState( (state) => {
-        //     return {tasks: newTasks}
-        // }, () => this.saveState());
 
         this.props.addTask(todoListId, newTask)
 
@@ -68,6 +63,7 @@ class TodoList extends React.Component {
     };
 
     changeTask = (taskID, obj) => {
+        let todoListId = this.props.id
         let newTask = this.state.tasks.map(t => {
             if (t.id != taskID) {
                 return t
@@ -75,14 +71,18 @@ class TodoList extends React.Component {
                 return {...t, ...obj}
             }
         });
-        this.setState({
-            tasks: newTask
-        })
+
+        // this.setState({
+        //     tasks: newTask
+        // })
+
+        this.props.changeTask(todoListId, taskID, obj)
     }
 
 
     changeStatus = (taskID, isDone) => {
-        this.changeTask(taskID, {isDone})
+        let todoListId = this.props.id
+        this.props.changeTask(todoListId, taskID, {isDone})
     };
 
 
@@ -131,7 +131,10 @@ class TodoList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTask: (todoListId, newTask) => {
-            dispatch(addTaskActionCreater(todoListId, newTask))
+            dispatch(addTaskActionCreator(todoListId, newTask))
+        },
+        changeTask: (todoListId, taskID, obj) => {
+            dispatch(changeTaskActionCreator(todoListId, taskID, obj))
         }
     }
 }
