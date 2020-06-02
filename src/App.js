@@ -12,7 +12,7 @@ class App extends React.Component {
         todolists: [],
     };
 
-    newTodoListId = 0;
+    newTodoListId = 2;
 
     addTodoList = (title) => {
 
@@ -52,7 +52,7 @@ class App extends React.Component {
 
     render() {
 
-        let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} />)
+        let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} tasks={td.tasks}/>)
 
         return (
             <div>
