@@ -63,8 +63,8 @@ const reducer = (state = initialState, action) => {
                     if (tl.id === action.todoListId) {
                         return {
                             ...tl,
-                            tasks: [tl.tasks.filter(t => {
-                                if (t.id === action.taskID) {
+                            tasks: [...tl.tasks.filter(t => {
+                                if (t.id !== action.taskID) {
                                     return t
                                 }
                             })]
