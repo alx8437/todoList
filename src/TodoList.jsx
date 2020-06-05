@@ -5,7 +5,7 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
-import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC} from "./store";
+import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC} from "./store";
 
 
 
@@ -73,6 +73,10 @@ class TodoList extends React.Component {
         this.props.dellTask(todoListId, taskID)
     }
 
+    dellTodoList = (todoListId) => {
+        this.props.dellTodoList(todoListId)
+    }
+
 
 
     render = () => {
@@ -80,7 +84,11 @@ class TodoList extends React.Component {
         return (
             <div className="todoList">
                 <div>
-                    <TodoListTitle title={this.props.title}/>
+                    <TodoListTitle
+                        title={this.props.title}
+                        id={this.props.id}
+                        dellTodoList={this.dellTodoList}
+                    />
                     <AddNewItemForm addItem={this.addTask}
                     />
                     <TodoListTasks
@@ -119,6 +127,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         dellTask: (todoListId, taskID) => {
             dispatch(dellTaskAC(todoListId, taskID))
+        },
+        dellTodoList: (todoListId) => {
+            debugger
+            dispatch(dellTodolistAC(todoListId))
         }
     }
 

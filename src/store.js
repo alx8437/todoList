@@ -4,16 +4,18 @@ const ADD_TODOLIST = "ADD_TODOLIST";
 const ADD_TASK = "ADD_TASK";
 const CHANGE_TASK = "CHANGE_TASK";
 const DELL_TASK = "DELL_TASK";
+const DELL_TODOLIST = "DELL_TODOLIST";
+
 
 
 const initialState = {
     todolists: [
-        {
-            id: 0,
-            title: "JS",
-            tasks: []
-        },
-        {id: 1, title: "React", tasks: []}
+        // {
+        //     id: 0,
+        //     title: "JS",
+        //     tasks: []
+        // },
+        // {id: 1, title: "React", tasks: []}
     ]
 }
 
@@ -73,6 +75,18 @@ const reducer = (state = initialState, action) => {
                     return tl
                 })
             }
+        case DELL_TODOLIST:
+            debugger
+            return {
+                ...state,
+                todolists: [state.todolists.filter(tl => {
+                    if (tl.id !== action.todoListId) {
+                        return tl
+                    }
+                    debugger
+                })]
+
+            }
         default:
             return state
     }
@@ -124,6 +138,14 @@ export const dellTaskAC = (todoListId, taskID) => {
         type: DELL_TASK,
         todoListId,
         taskID
+    }
+}
+
+export const dellTodolistAC = (todoListId) => {
+    debugger
+    return {
+        type: DELL_TODOLIST,
+        todoListId
     }
 }
 
