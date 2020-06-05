@@ -18,34 +18,10 @@ class TodoList extends React.Component {
         filterValue: "All"
     };
 
-    nextTaskId = this.props.id
+    nextTaskId = 0
 
 
 
-    saveState = () => {
-        let stateAsSting = JSON.stringify(this.state);
-        localStorage.setItem("ourstatetask-" + this.props.id, stateAsSting)
-    };
-
-    restoreState = () => {
-        let state = {
-            tasks: [],
-            filterValue: "All"
-        };
-        let stateAsString = localStorage.getItem("ourstatetask-" + this.props.id);
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString)
-        }
-        this.setState(state, ()=> this.state.tasks.forEach(t => {
-            if (t.id > this.nextTaskId) {
-                this.nextTaskId = t.id + 1;
-            }
-        }))
-    }
-
-    componentDidMount() {
-        this.restoreState()
-    }
 
     addTask = (newText) => {
         let todoListId = this.props.id
@@ -96,7 +72,7 @@ class TodoList extends React.Component {
 
     render = () => {
 
-
+debugger
         return (
             <div className="todoList">
                 <div>

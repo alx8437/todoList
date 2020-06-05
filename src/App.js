@@ -16,38 +16,13 @@ class App extends React.Component {
 
     addTodoList = (title) => {
 
-        let newTodoList = {id: this.newTodoListId, title: title};
+        let newTodoList = {id: this.newTodoListId, title: title, tasks: []};
         this.newTodoListId += 1
 
         this.props.addTodoList(newTodoList)
 
     };
 
-
-
-    stateSaveLocalStorage = () => {
-        let stateAsString = JSON.stringify(this.state);
-        localStorage.setItem('ourstatetdlist', stateAsString)
-    };
-
-    componentDidMount() {
-        this.restoreState()
-    }
-
-    restoreState = () => {
-        let state = {
-            todolists: [],
-        };
-        let stateAsString = localStorage.getItem('ourstatetdlist');
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString)
-        }
-        this.setState(state, ()=> this.state.todolists.forEach(td => {
-            if (td.id > this.newTodoListId) {
-                this.newTodoListId = td.id + 1;
-            }
-        }))
-    };
 
 
     render() {
