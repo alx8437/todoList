@@ -3,10 +3,16 @@ import {createStore} from "redux";
 const ADD_TODOLIST = "ADD_TODOLIST";
 const ADD_TASK = "ADD_TASK";
 const CHANGE_TASK = "CHANGE_TASK";
+const DELL_TASK = "DELL_TASK";
+
 
 const initialState = {
     todolists: [
-        {id: 0, title: "JS", tasks: []},
+        {
+            id: 0,
+            title: "JS",
+            tasks: []
+        },
         {id: 1, title: "React", tasks: []}
     ]
 }
@@ -19,7 +25,8 @@ const reducer = (state = initialState, action) => {
                 todolists: [...state.todolists, action.newTodoList]
             };
         case ADD_TASK:
-            return { ...state,
+            return {
+                ...state,
                 todolists: [...state.todolists.map(tl => {
                     if (tl.id === action.todoListId) {
                         return {...tl, tasks: [...tl.tasks, action.newTask]}
@@ -33,26 +40,56 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 todolists: [...state.todolists.map(tl => {
                     if (tl.id === action.todoListId) {
-                        return {...tl, tasks: [...tl.tasks.map(task => {
-                            if (task.id !== action.taskID) {
-                                return task
-                            } else {
-                                return {
-                                    ...task, ...action.obj
+                        return {
+                            ...tl, tasks: [...tl.tasks.map(task => {
+                                if (task.id !== action.taskID) {
+                                    return task
+                                } else {
+                                    return {
+                                        ...task, ...action.obj
+                                    }
                                 }
-                            }
-                            })]}
+                            })]
+                        }
                     } else {
                         return tl
                     }
                 })]
             }
+        case DELL_TASK:
+            return {
+                ...state,
+                todolists: state.todolists.map(tl => {
+                    if (tl.id === action.todoListId) {
+                        return {
+                            ...tl,
+                            tasks: [tl.tasks.filter(t => {
+                                if (t.id === action.taskID) {
+                                    return t
+                                }
+                            })]
+                        }
+                    }
+                    return tl
+                })
+            }
         default:
             return state
     }
 
-};
+    // todolists: [
+    //     {
+    //         id: 0,
+    //         title: "JS",
+    //         tasks: []
+    //     },
+    //     {id: 1, title: "React", tasks: []}
+    // ]
+    //
 
+
+
+};
 
 
 // ActionCreators
@@ -66,11 +103,11 @@ export const addTodoListActionCreator = (newTodoList) => {
 };
 
 export const addTaskActionCreator = (todoListId, newTask) => {
-   return {
-       type: ADD_TASK,
-       todoListId,
-       newTask
-   }
+    return {
+        type: ADD_TASK,
+        todoListId,
+        newTask
+    }
 }
 
 export const changeTaskActionCreator = (todoListId, taskID, obj) => {
@@ -82,6 +119,13 @@ export const changeTaskActionCreator = (todoListId, taskID, obj) => {
     }
 }
 
+export const dellTaskAC = (todoListId, taskID) => {
+    return {
+        type: DELL_TASK,
+        todoListId,
+        taskID
+    }
+}
 
 
 const store = createStore(reducer);

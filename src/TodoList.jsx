@@ -5,7 +5,7 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
-import {addTaskActionCreator, changeTaskActionCreator} from "./store";
+import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC} from "./store";
 
 
 
@@ -68,11 +68,15 @@ class TodoList extends React.Component {
     };
 
 
+    dellTask = (taskID) => {
+        let todoListId = this.props.id
+        this.props.dellTask(todoListId, taskID)
+    }
+
 
 
     render = () => {
 
-debugger
         return (
             <div className="todoList">
                 <div>
@@ -93,6 +97,7 @@ debugger
                         })}
                         changeStatus={this.changeStatus}
                         changeStatusTitle={this.changeStatusTitle}
+                        dellTask={this.dellTask}
                     />
                     <TodoListFooter
                         filterValue={this.state.filterValue}
@@ -111,9 +116,17 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeTask: (todoListId, taskID, obj) => {
             dispatch(changeTaskActionCreator(todoListId, taskID, obj))
+        },
+        dellTask: (todoListId, taskID) => {
+            dispatch(dellTaskAC(todoListId, taskID))
         }
     }
+
+
 }
+
+
+
 
 
 const ConnectTodoList = connect(null, mapDispatchToProps)(TodoList)

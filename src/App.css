@@ -34,3 +34,10 @@
 .todoList-task.done {
     opacity: 0.5;
 }
+
+.dellTask {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    cursor: pointer;
+}

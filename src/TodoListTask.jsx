@@ -33,6 +33,12 @@ class TodoListTask extends React.Component {
         }
     }
 
+    dellTask = () => {
+        let taskID = this.props.task.id
+        this.props.dellTask(taskID)
+        // alert("yo")
+    }
+
 
     render = () => {
 
@@ -54,12 +60,18 @@ class TodoListTask extends React.Component {
                             onChange={this.onTitleChange}
                             onKeyPress={this.onKeyPress}
                         />
-                        : <span onClick={this.isEditModeActivated}> {this.props.task.id} - {this.props.task.title}: {this.props.task.priority}</span>
+                        : <span
+                            onClick={this.isEditModeActivated}>
+                            {this.props.task.id} - {this.props.task.title}: {this.props.task.priority}
+                    </span>
                     }
+                    <span onClick={this.dellTask} className={"dellTask"}>del</span>
                 </div>
             </div>
         )
     }
 }
+
+
 
 export default TodoListTask;
