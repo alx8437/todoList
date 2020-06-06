@@ -2,7 +2,7 @@ import React from "react";
 import TodoList from "./TodoList";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
-import {addTodoListActionCreator} from "./store";
+import {addTodoListActionCreator} from "./reducer";
 
 
 
@@ -26,8 +26,9 @@ class App extends React.Component {
 
 
     render() {
+
         let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} tasks={td.tasks}/>)
-        debugger
+
         return (
             <div>
                 <AddNewItemForm

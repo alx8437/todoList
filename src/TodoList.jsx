@@ -5,7 +5,7 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
-import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC} from "./store";
+import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC} from "./reducer";
 
 
 
