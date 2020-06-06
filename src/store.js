@@ -76,10 +76,9 @@ const reducer = (state = initialState, action) => {
                 })
             }
         case DELL_TODOLIST:
-            debugger
             return {
                 ...state,
-                todolists: [state.todolists.filter(tl => {
+                todolists: [...state.todolists.filter(tl => {
                     if (tl.id !== action.todoListId) {
                         return tl
                     }
@@ -142,7 +141,6 @@ export const dellTaskAC = (todoListId, taskID) => {
 }
 
 export const dellTodolistAC = (todoListId) => {
-    debugger
     return {
         type: DELL_TODOLIST,
         todoListId

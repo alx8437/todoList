@@ -80,7 +80,6 @@ class TodoList extends React.Component {
 
 
     render = () => {
-
         return (
             <div className="todoList">
                 <div>
@@ -129,7 +128,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(dellTaskAC(todoListId, taskID))
         },
         dellTodoList: (todoListId) => {
-            debugger
             dispatch(dellTodolistAC(todoListId))
         }
     }
