@@ -2,15 +2,16 @@ import React from "react";
 import TodoList from "./TodoList";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
-import {addTodoListActionCreator} from "./reducer";
+import {addTodoListActionCreator, setTodoLists} from "./reducer";
+import axios from 'axios';
 
 
 
 class App extends React.Component {
 
-    state = {
-        todolists: [],
-    };
+    // state = {
+    //     todolists: [],
+    // };
 
     newTodoListId = 2;
 
@@ -22,6 +23,19 @@ class App extends React.Component {
         this.props.addTodoList(newTodoList)
 
     };
+
+    componentDidMount() {
+        this.restoreState()
+    }
+
+    restoreState = () => {
+        axios.get("https://social-network.samuraijs.com/api/1.0/todo-lists",
+            {withCredentials: true})
+            .then(res => {
+                debugger
+                this.props.setTodoLists(res.data)
+            })
+    }
 
 
 
@@ -53,6 +67,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addTodoList: (newTodoList) => {
             dispatch(addTodoListActionCreator(newTodoList))
+        },
+        setTodoLists: (todoLists) => {
+            dispatch(setTodoLists(todoLists))
         }
     }
 
