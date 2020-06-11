@@ -15,6 +15,7 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODOLIST:
+            debugger
             return {
                 ...state,
                 todolists: [...state.todolists, action.newTodoList]
@@ -83,9 +84,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 todolists: action.todolists.map(tl => {
-                   return {
-                       ...tl, tasks: []
-                   }
+                   return { ...tl, tasks: []}
                 })
             }
         default:

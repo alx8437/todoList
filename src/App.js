@@ -17,10 +17,18 @@ class App extends React.Component {
 
     addTodoList = (title) => {
 
-        let newTodoList = {id: this.newTodoListId, title: title, tasks: []};
-        this.newTodoListId += 1
-
-        this.props.addTodoList(newTodoList)
+        axios.post(
+            "https://social-network.samuraijs.com/api/1.0/todo-lists",
+            {title: title},
+            {
+                withCredentials: true,
+                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+            }
+        )
+            .then(res => {
+                let todoList = res.data.data.item
+                this.props.addTodoList(todoList)
+            })
 
     };
 
@@ -32,7 +40,6 @@ class App extends React.Component {
         axios.get("https://social-network.samuraijs.com/api/1.0/todo-lists",
             {withCredentials: true})
             .then(res => {
-                debugger
                 this.props.setTodoLists(res.data)
             })
     }
