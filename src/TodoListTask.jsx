@@ -41,8 +41,8 @@ class TodoListTask extends React.Component {
 
 
     render = () => {
-
-        let taskIsDoneClass = this.props.task.isDone ? 'todoList-task done' : 'todoList-task'
+        let statusTask = this.props.task.status;
+        let taskIsDoneClass = statusTask === 2 ? 'todoList-task done' : 'todoList-task';
 
         return (
             <div className={taskIsDoneClass}>
@@ -50,7 +50,7 @@ class TodoListTask extends React.Component {
                     <input
                         onChange={this.onIsDoneChanged}
                         type="checkbox"
-                        checked={this.props.task.isDone}
+                        checked={statusTask === 2}
                     />
                     {this.state.editMode ?
                         <input

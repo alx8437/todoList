@@ -124,8 +124,6 @@ class TodoList extends React.Component {
 
     render = () => {
 
-        let {tasks = []} = this.props
-
         return (
             <div className="todoList">
                 <div>
@@ -141,10 +139,10 @@ class TodoList extends React.Component {
                                 return true;
                             }
                             if (this.state.filterValue === "Active") {
-                                return t.isDone === false;
+                                return t.status === 0;
                             }
                             if (this.state.filterValue === "Completed") {
-                                return t.isDone === true;
+                                return t.status === 2;
                             }
                         })}
                         changeStatus={this.changeStatus}
