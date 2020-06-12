@@ -9,14 +9,11 @@ import axios from 'axios';
 
 class App extends React.Component {
 
-    // state = {
-    //     todolists: [],
-    // };
+
 
     newTodoListId = 2;
 
     addTodoList = (title) => {
-
         axios.post(
             "https://social-network.samuraijs.com/api/1.0/todo-lists",
             {title: title},

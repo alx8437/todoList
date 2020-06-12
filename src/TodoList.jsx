@@ -6,21 +6,17 @@ import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
 import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC} from "./reducer";
-
+import axios from 'axios'
 
 
 class TodoList extends React.Component {
 
     state = {
-        tasks: [
-
-        ],
+        tasks: [],
         filterValue: "All"
     };
 
     nextTaskId = 0
-
-
 
 
     addTask = (newText) => {
@@ -33,15 +29,15 @@ class TodoList extends React.Component {
     };
 
     changeFilter = (newFilterValue) => {
-        this.setState( {
-            filterValue:newFilterValue
+        this.setState({
+            filterValue: newFilterValue
         })
     };
 
     changeTask = (taskID, obj) => {
         let todoListId = this.props.id
         let newTask = this.state.tasks.map(t => {
-            if (t.id != taskID) {
+            if (t.id !== taskID) {
                 return t
             } else {
                 return {...t, ...obj}
@@ -62,21 +58,45 @@ class TodoList extends React.Component {
     };
 
 
-
     changeStatusTitle = (taskID, title) => {
         this.changeTask(taskID, {title})
     };
 
 
     dellTask = (taskID) => {
+
         let todoListId = this.props.id
         this.props.dellTask(todoListId, taskID)
     }
 
-    dellTodoList = (todoListId) => {
-        this.props.dellTodoList(todoListId)
-    }
+    dellTodoList = () => {
+        debugger
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/todo-lists/${this.props.id}`,
+            {
+                withCredentials: true,
+                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+            }
+        ).then(res => {
+            if (res.data.resultCode === 0) {
+                this.props.dellTodoList(this.props.id)
+            }
+        })
 
+   }
+
+    // dellTodoList = () => {
+    //     axios.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}`,
+    //         {
+    //             withCredentials: true,
+    //             headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+    //         }
+    //     ).then(res => {
+    //         debugger
+    //         if (res.data.resultCode === 0) {
+    //             this.props.dellTodoList(this.props.id);
+    //         }
+    //     })
+    // }
 
 
     render = () => {
@@ -85,7 +105,6 @@ class TodoList extends React.Component {
                 <div>
                     <TodoListTitle
                         title={this.props.title}
-                        id={this.props.id}
                         dellTodoList={this.dellTodoList}
                     />
                     <AddNewItemForm addItem={this.addTask}
@@ -134,9 +153,6 @@ const mapDispatchToProps = (dispatch) => {
 
 
 }
-
-
-
 
 
 const ConnectTodoList = connect(null, mapDispatchToProps)(TodoList)

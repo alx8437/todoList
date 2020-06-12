@@ -1,13 +1,10 @@
 import React from 'react';
 
 class TodoListTitle extends React.Component {
-    constructor(props) {
-        super();
-    }
+
 
     dellTodoList = () => {
-        let todoListId = this.props.id
-        this.props.dellTodoList(todoListId)
+        this.props.dellTodoList()
     }
 
 
