@@ -4,6 +4,7 @@ const CHANGE_TASK = "CHANGE_TASK";
 const DELL_TASK = "DELL_TASK";
 const DELL_TODOLIST = "DELL_TODOLIST";
 const SET_TODOLIST = "SET_TODOLIST";
+const SET_TASKS = "SET_TASKS";
 
 
 
@@ -88,6 +89,18 @@ export const reducer = (state = initialState, action) => {
                    return { ...tl, tasks: []}
                 })
             }
+        case SET_TASKS:
+            debugger
+            return {
+                ...state,
+                todolists: state.todolists.map(tl => {
+                    if (tl.id !== action.todoListId) {
+                        return tl
+                    } else {
+                        return {...tl, tasks: action.tasks}
+                    }
+                })
+            }
         default:
             return state
     }
@@ -136,5 +149,14 @@ export const setTodoLists = (todolists) => {
     return {
         type: SET_TODOLIST,
         todolists
+    }
+}
+
+export const setTasks = (todoListId, tasks) => {
+    debugger
+    return {
+        type: SET_TASKS,
+        tasks,
+        todoListId
     }
 }

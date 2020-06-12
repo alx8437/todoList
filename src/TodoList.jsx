@@ -5,28 +5,54 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TotoListTitle";
 import {connect} from "react-redux";
-import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC} from "./reducer";
+import {addTaskActionCreator, changeTaskActionCreator, dellTaskAC, dellTodolistAC, setTasks} from "./reducer";
 import axios from 'axios'
 
 
 class TodoList extends React.Component {
 
     state = {
-        tasks: [],
         filterValue: "All"
     };
 
     nextTaskId = 0
 
+    componentDidMount() {
+        this.restoreState()
+    }
+
 
     addTask = (newText) => {
-        let todoListId = this.props.id
-        let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: "low"};
-        this.nextTaskId += 1
-
-        this.props.addTask(todoListId, newTask)
+        axios.post(
+            `https://social-network.samuraijs.com/api/1.0/todo-lists/${this.props.id}/tasks`,
+            {title: newText},
+            {
+                withCredentials: true,
+                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+            }
+        )
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    let newTask = res.data.data.item
+                    this.props.addTask(this.props.id, newTask)
+                }
+            })
 
     };
+
+    restoreState = () => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/todo-lists/${this.props.id}/tasks`,
+        {
+            withCredentials: true,
+            headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+        },)
+            .then(res => {
+                if (!res.data.error) {
+                    this.props.setTasks(this.props.id, res.data.items)
+                }
+            })
+
+    }
 
     changeFilter = (newFilterValue) => {
         this.setState({
@@ -44,9 +70,6 @@ class TodoList extends React.Component {
             }
         });
 
-        // this.setState({
-        //     tasks: newTask
-        // })
 
         this.props.changeTask(todoListId, taskID, obj)
     }
@@ -100,6 +123,9 @@ class TodoList extends React.Component {
 
 
     render = () => {
+
+        let {tasks = []} = this.props
+
         return (
             <div className="todoList">
                 <div>
@@ -148,6 +174,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         dellTodoList: (todoListId) => {
             dispatch(dellTodolistAC(todoListId))
+        },
+        setTasks: (todoListId, tasks) => {
+            debugger
+            dispatch(setTasks(todoListId, tasks))
         }
     }
 
