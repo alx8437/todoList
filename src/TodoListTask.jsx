@@ -24,7 +24,8 @@ class TodoListTask extends React.Component {
 
 
     onIsDoneChanged = (event) => {
-        this.props.changeStatus(this.props.task.id, event.currentTarget.checked);
+        let status = event.currentTarget.checked ? 2 : 0;
+        this.props.changeStatus(this.props.task, status);
     };
 
     onKeyPress = (e) => {

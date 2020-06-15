@@ -75,10 +75,24 @@ class TodoList extends React.Component {
     }
 
 
-    changeStatus = (taskID, isDone) => {
-        debugger
+    changeStatus = (task, status) => {
         let todoListId = this.props.id
-        this.props.changeTask(todoListId, taskID, {isDone})
+        let taskID = task.id
+        let newTask = {...task.id, ...status}
+        axios.put(
+            `https://social-network.samuraijs.com/api/1.1/todo-lists/${todoListId}/tasks/${taskID}`,
+            newTask,
+            {
+                withCredentials: true,
+                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+            }
+        ).then(response => {
+            if (response.data.resultCode === 0) {
+                debugger
+                this.props.changeTask(response.data.data.item)
+            }
+        })
+
     };
 
 
