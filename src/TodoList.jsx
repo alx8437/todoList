@@ -12,7 +12,7 @@ import axios from 'axios'
 class TodoList extends React.Component {
 
     state = {
-        filterValue: "All"
+        filterValue: "All",
     };
 
     nextTaskId = 0
@@ -62,7 +62,7 @@ class TodoList extends React.Component {
 
     changeTask = (task, obj) => {
         axios.put(
-            `https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
+            `https://social-network.samuraijs.com/api/1.1/todo-lists/${this.props.id}/tasks/${task.id}`,
             {...task, ...obj}, //Передаем таску с иммутабельно измененным свойством status
             {
                 withCredentials: true,
@@ -78,13 +78,13 @@ class TodoList extends React.Component {
 
 
     changeStatus = (task, status) => {
-        let todoListId = this.props.id
         this.changeTask(task, {status})
     };
 
 
-    changeStatusTitle = (taskID, title) => {
-        this.changeTask(taskID, {title})
+    changeStatusTitle = (task, title) => {
+        debugger
+        this.changeTask(task, {title})
     };
 
 
