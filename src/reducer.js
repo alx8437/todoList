@@ -37,17 +37,17 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 todolists: [...state.todolists.map(tl => {
-                    if (tl.id === action.todoListId) {
+                    if (tl.id === action.task.todoListId) {
                         return {
-                            ...tl, tasks: [...tl.tasks.map(task => {
-                                if (task.id !== action.taskID) {
+                            ...tl,
+                            tasks: tl.tasks.map(task => {
+                                debugger
+                                if (task.id !== action.task.id) {
                                     return task
                                 } else {
-                                    return {
-                                        ...task, ...action.obj
-                                    }
+                                    return {...action.task}
                                 }
-                            })]
+                            })
                         }
                     } else {
                         return tl
@@ -123,12 +123,10 @@ export const addTaskActionCreator = (todoListId, newTask) => {
         newTask
     }
 }
-export const changeTaskActionCreator = (todoListId, taskID, obj) => {
+export const changeTaskActionCreator = (task) => {
     return {
         type: CHANGE_TASK,
-        todoListId,
-        taskID,
-        obj
+        task
     }
 }
 export const dellTaskAC = (todoListId, taskID) => {

@@ -60,39 +60,26 @@ class TodoList extends React.Component {
         })
     };
 
-    changeTask = (taskID, obj) => {
-        let todoListId = this.props.id
-        let newTask = this.state.tasks.map(t => {
-            if (t.id !== taskID) {
-                return t
-            } else {
-                return {...t, ...obj}
+    changeTask = (task, obj) => {
+        axios.put(
+            `https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
+            {...task, ...obj}, //Передаем таску с иммутабельно измененным свойством status
+            {
+                withCredentials: true,
+                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
             }
-        });
-
-
-        this.props.changeTask(todoListId, taskID, obj)
+        )
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.changeTask(response.data.data.item)
+                }
+            })
     }
 
 
     changeStatus = (task, status) => {
         let todoListId = this.props.id
-        let taskID = task.id
-        let newTask = {...task.id, ...status}
-        axios.put(
-            `https://social-network.samuraijs.com/api/1.1/todo-lists/${todoListId}/tasks/${taskID}`,
-            newTask,
-            {
-                withCredentials: true,
-                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
-            }
-        ).then(response => {
-            if (response.data.resultCode === 0) {
-                debugger
-                this.props.changeTask(response.data.data.item)
-            }
-        })
-
+        this.changeTask(task, {status})
     };
 
 
@@ -102,7 +89,6 @@ class TodoList extends React.Component {
 
 
     dellTask = (taskID) => {
-
         let todoListId = this.props.id
         this.props.dellTask(todoListId, taskID)
     }
@@ -165,8 +151,8 @@ const mapDispatchToProps = (dispatch) => {
         addTask: (todoListId, newTask) => {
             dispatch(addTaskActionCreator(todoListId, newTask))
         },
-        changeTask: (todoListId, taskID, obj) => {
-            dispatch(changeTaskActionCreator(todoListId, taskID, obj))
+        changeTask: (task) => {
+            dispatch(changeTaskActionCreator(task))
         },
         dellTask: (todoListId, taskID) => {
             dispatch(dellTaskAC(todoListId, taskID))
@@ -175,7 +161,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(dellTodolistAC(todoListId))
         },
         setTasks: (todoListId, tasks) => {
-            debugger
             dispatch(setTasks(todoListId, tasks))
         }
     }
