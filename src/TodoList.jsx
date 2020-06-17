@@ -83,18 +83,27 @@ class TodoList extends React.Component {
 
 
     changeStatusTitle = (task, title) => {
-        debugger
         this.changeTask(task, {title})
     };
 
 
     dellTask = (taskID) => {
         let todoListId = this.props.id
-        this.props.dellTask(todoListId, taskID)
+        axios.delete(
+            `https://social-network.samuraijs.com/api/1.1/todo-lists/${todoListId}/tasks/${taskID}`,
+        {
+            withCredentials: true,
+            headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
+        }
+        )
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    this.props.dellTask(todoListId, taskID)
+                }
+            })
     }
 
     dellTodoList = () => {
-        debugger
         axios.delete(`https://social-network.samuraijs.com/api/1.0/todo-lists/${this.props.id}`,
             {
                 withCredentials: true,

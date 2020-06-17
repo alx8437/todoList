@@ -16,13 +16,11 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODOLIST:
-            debugger
             return {
                 ...state,
                 todolists: [...state.todolists, {...action.newTodoList, tasks: []} ]
             };
         case ADD_TASK:
-            debugger
             return {
                 ...state,
                 todolists: [...state.todolists.map(tl => {
@@ -78,7 +76,6 @@ export const reducer = (state = initialState, action) => {
                     if (tl.id !== action.todoListId) {
                         return tl
                     }
-                    debugger
                 })]
 
             }
@@ -90,7 +87,6 @@ export const reducer = (state = initialState, action) => {
                 })
             }
         case SET_TASKS:
-            debugger
             return {
                 ...state,
                 todolists: state.todolists.map(tl => {
@@ -151,7 +147,6 @@ export const setTodoLists = (todolists) => {
 }
 
 export const setTasks = (todoListId, tasks) => {
-    debugger
     return {
         type: SET_TASKS,
         tasks,
