@@ -4,26 +4,18 @@ import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
 import {addTodoListActionCreator, setTodoLists} from "./reducer";
 import axios from 'axios';
-
+import {api} from "./api";
 
 
 class App extends React.Component {
 
 
-
     newTodoListId = 2;
 
     addTodoList = (title) => {
-        axios.post(
-            "https://social-network.samuraijs.com/api/1.0/todo-lists",
-            {title: title},
-            {
-                withCredentials: true,
-                headers: {"API-KEY": "e655fc0d-99c3-4c81-8dea-0837243fe8bf"}
-            }
-        )
+        api.createTodoList(title)
             .then(res => {
-                let todoList = res.data.data.item
+                let todoList = res.data.item
                 this.props.addTodoList(todoList)
             })
 
@@ -34,18 +26,17 @@ class App extends React.Component {
     }
 
     restoreState = () => {
-        axios.get("https://social-network.samuraijs.com/api/1.0/todo-lists",
-            {withCredentials: true})
+        api.getTodoList()
             .then(res => {
                 this.props.setTodoLists(res.data)
             })
     }
 
 
-
     render() {
 
-        let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title} tasks={td.tasks}/>)
+        let todolists = this.props.todolists.map(td => <TodoList key={td.id} id={td.id} title={td.title}
+                                                                 tasks={td.tasks}/>)
 
         return (
             <div>
@@ -62,6 +53,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    debugger
     return {
         todolists: state.todolists
     }
