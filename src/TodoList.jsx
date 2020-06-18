@@ -97,7 +97,10 @@ class TodoList extends React.Component {
     changeTodoList = (title) => {
         api.updateTodolistTitle(this.props.id, title)
             .then(res => {
-                this.props.changeTodoList(res)
+                if (res.resultCode === 0) {
+                    debugger
+                    this.props.changeTodoList(this.props.id, title)
+                }
             })
     }
 

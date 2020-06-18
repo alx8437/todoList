@@ -53,7 +53,6 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    debugger
     return {
         todolists: state.todolists
     }

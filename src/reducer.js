@@ -98,17 +98,17 @@ export const reducer = (state = initialState, action) => {
                     }
                 })
             }
-        // case CHANGE_TODOLIST:
-        //     return {
-        //         ...state,
-        //         todolists: todolists.map(tl => {
-        //             if (tl.id !== action.todoListId) {
-        //                 return tl
-        //             } else {
-        //                 return {...tl, title: action.title}
-        //             }
-        //         })
-        //     }
+        case CHANGE_TODOLIST:
+            return {
+                ...state,
+                todolists: state.todolists.map(tl => {
+                    if (tl.id !== action.todoListId) {
+                        return tl
+                    } else {
+                        return {...tl, title: action.title}
+                    }
+                })
+            }
         default:
             return state
     }
@@ -167,6 +167,7 @@ export const setTasks = (todoListId, tasks) => {
 }
 
 export const changeTodoList = (todoListId, title) => {
+    debugger
     return {
         type: CHANGE_TODOLIST,
         todoListId,

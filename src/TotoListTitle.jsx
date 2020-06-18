@@ -38,7 +38,6 @@ class TodoListTitle extends React.Component {
 
         return (
             <div className="todoList-header">
-                <h3 className="todoList-header__title">{this.props.title}</h3>
                 {this.state.editMode ?
                     <input
                         value={this.state.title}
@@ -47,7 +46,7 @@ class TodoListTitle extends React.Component {
                         onChange={this.onTitleChange}
                         onKeyPress={this.onKeyPress}
                     />
-                    : <span onClick={this.isEditModeActivated}>{this.state.title}</span>
+                    : <h3 className="todoList-header__title" onClick={this.isEditModeActivated}>{this.props.title}</h3>
                 }
                 <span onClick={this.dellTodoList} className="dellTask">del</span>
             </div>
