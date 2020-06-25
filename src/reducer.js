@@ -1,38 +1,39 @@
-const ADD_TODOLIST = "ADD_TODOLIST";
-const ADD_TASK = "ADD_TASK";
-const CHANGE_TASK = "CHANGE_TASK";
-const DELL_TASK = "DELL_TASK";
-const DELL_TODOLIST = "DELL_TODOLIST";
-const SET_TODOLIST = "SET_TODOLIST";
-const SET_TASKS = "SET_TASKS";
-const CHANGE_TODOLIST = "CHANGE_TODOLIST"
+import {api} from "./api";
 
+const ADD_TODOLIST_SUCCESS = "ADD_TODOLIST_SUCCESS";
+const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS";
+const CHANGE_TASK_SUCCESS = "CHANGE_TASK_SUCCESS";
+const DELL_TASK_SUCCESS = "DELL_TASK_SUCCESS";
+const DELL_TODOLIST_SUCCESS = "DELL_TODOLIST_SUCCESS";
+const SET_TODOLIST_SUCCESS = "SET_TODOLIST_SUCCESS";
+const SET_TASKS_SUCCESS = "SET_TASKS_SUCCESS";
+const CHANGE_TODOLIST_SUCCESS = "CHANGE_TODOLIST_SUCCESS";
 
 
 const initialState = {
-    todolists: []
-}
+    todolists: [],
+};
 
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_TODOLIST:
+        case ADD_TODOLIST_SUCCESS:
             return {
                 ...state,
-                todolists: [...state.todolists, {...action.newTodoList, tasks: []} ]
+                todolists: [...state.todolists, {...action.newTodoList, tasks: []}],
             };
-        case ADD_TASK:
+        case ADD_TASK_SUCCESS:
             return {
                 ...state,
                 todolists: [...state.todolists.map(tl => {
                     if (tl.id === action.todoListId) {
-                        return {...tl, tasks: [...tl.tasks, action.newTask]}
+                        return {...tl, tasks: [...tl.tasks, action.newTask]};
                     } else {
-                        return tl
+                        return tl;
                     }
-                })]
-            }
-        case CHANGE_TASK:
+                })],
+            };
+        case CHANGE_TASK_SUCCESS:
             return {
                 ...state,
                 todolists: [...state.todolists.map(tl => {
@@ -42,18 +43,18 @@ export const reducer = (state = initialState, action) => {
                             tasks: tl.tasks.map(task => {
                                 debugger
                                 if (task.id !== action.task.id) {
-                                    return task
+                                    return task;
                                 } else {
-                                    return {...action.task}
+                                    return {...action.task};
                                 }
-                            })
-                        }
+                            }),
+                        };
                     } else {
-                        return tl
+                        return tl;
                     }
-                })]
-            }
-        case DELL_TASK:
+                })],
+            };
+        case DELL_TASK_SUCCESS:
             return {
                 ...state,
                 todolists: state.todolists.map(tl => {
@@ -62,115 +63,142 @@ export const reducer = (state = initialState, action) => {
                             ...tl,
                             tasks: [...tl.tasks.filter(t => {
                                 if (t.id !== action.taskID) {
-                                    return t
+                                    return t;
                                 }
-                            })]
-                        }
+                            })],
+                        };
                     }
-                    return tl
-                })
-            }
-        case DELL_TODOLIST:
+                    return tl;
+                }),
+            };
+        case DELL_TODOLIST_SUCCESS:
             return {
                 ...state,
                 todolists: [...state.todolists.filter(tl => {
                     if (tl.id !== action.todoListId) {
-                        return tl
+                        return tl;
                     }
-                })]
+                })],
 
-            }
-        case SET_TODOLIST:
+            };
+        case SET_TODOLIST_SUCCESS:
             return {
                 ...state,
                 todolists: action.todolists.map(tl => {
-                   return { ...tl, tasks: []}
-                })
-            }
-        case SET_TASKS:
+                    return {...tl, tasks: []};
+                }),
+            };
+        case SET_TASKS_SUCCESS:
             return {
                 ...state,
                 todolists: state.todolists.map(tl => {
                     if (tl.id !== action.todoListId) {
-                        return tl
+                        return tl;
                     } else {
-                        return {...tl, tasks: action.tasks}
+                        return {...tl, tasks: action.tasks};
                     }
-                })
-            }
-        case CHANGE_TODOLIST:
+                }),
+            };
+        case CHANGE_TODOLIST_SUCCESS:
             return {
                 ...state,
                 todolists: state.todolists.map(tl => {
                     if (tl.id !== action.todoListId) {
-                        return tl
+                        return tl;
                     } else {
-                        return {...tl, title: action.title}
+                        return {...tl, title: action.title};
                     }
-                })
-            }
+                }),
+            };
         default:
-            return state
+            return state;
     }
-
-
-
 };
 
-export const addTodoListActionCreator = (newTodoList) => {
-    return {
-        type: ADD_TODOLIST,
-        newTodoList
-    }
 
+// actionCreators
+
+export const addTodoListSuccess = (newTodoList) => ({type: ADD_TODOLIST_SUCCESS, newTodoList});
+export const addTaskSuccess = (todoListId, newTask) => ({type: ADD_TASK_SUCCESS, todoListId, newTask});
+export const changeTaskSuccess = (task) => ({type: CHANGE_TASK_SUCCESS, task});
+export const dellTaskSuccess = (todoListId, taskID) => ({type: DELL_TASK_SUCCESS, todoListId, taskID});
+export const dellTodolistSuccess = (todoListId) => ({type: DELL_TODOLIST_SUCCESS, todoListId});
+export const setTodoListsSuccess = (todolists) => ({type: SET_TODOLIST_SUCCESS, todolists});
+export const setTasksSuccess = (todoListId, tasks) => ({type: SET_TASKS_SUCCESS, tasks, todoListId});
+export const changeTodoListSuccess = (todoListId, title) => ({type: CHANGE_TODOLIST_SUCCESS, todoListId, title});
+
+
+//Thunk
+
+
+export const setTodoLists = () => (dispatch, getState) => {
+    //requests to server
+    api.getTodoList()
+        .then(res => {
+            //dispatch action
+            dispatch(setTodoListsSuccess(res.data));
+        });
 };
-export const addTaskActionCreator = (todoListId, newTask) => {
-    return {
-        type: ADD_TASK,
-        todoListId,
-        newTask
-    }
-}
-export const changeTaskActionCreator = (task) => {
-    return {
-        type: CHANGE_TASK,
-        task
-    }
-}
-export const dellTaskAC = (todoListId, taskID) => {
-    return {
-        type: DELL_TASK,
-        todoListId,
-        taskID
-    }
-}
-export const dellTodolistAC = (todoListId) => {
-    return {
-        type: DELL_TODOLIST,
-        todoListId
-    }
-}
 
-export const setTodoLists = (todolists) => {
-    return {
-        type: SET_TODOLIST,
-        todolists
-    }
-}
+export const addTodoList = (title) => (dispatch, getState) => {
+    api.createTodoList(title)
+        .then(res => {
+            let todoList = res.data.item;
+            dispatch(addTodoListSuccess(todoList));
+        });
+};
 
-export const setTasks = (todoListId, tasks) => {
-    return {
-        type: SET_TASKS,
-        tasks,
-        todoListId
-    }
-}
+export const addTask = (newText, todoListId) => (dispatch, getState) => {
+    api.postTasks(newText, todoListId)
+        .then(res => {
+            if (res.resultCode === 0) {
+                let newTask = res.data.item;
+                dispatch(addTaskSuccess(todoListId, newTask));
+            }
+        });
+};
 
-export const changeTodoList = (todoListId, title) => {
-    debugger
-    return {
-        type: CHANGE_TODOLIST,
-        todoListId,
-        title
-    }
-}
+export const changeTask = (todoListId, taskId, task, obj) => (dispatch, getState) => {
+    api.putChangeTask(todoListId, taskId, task, obj)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(changeTaskSuccess(response.data.item));
+            }
+        });
+};
+
+export const dellTask = (todoListId, taskId) => (dispatch, getState) => {
+    api.deleteTask(todoListId, taskId)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(dellTaskSuccess(todoListId, taskId));
+            }
+        });
+};
+
+export const dellTodoList = (todoListId) => (dispatch, getState) => {
+    api.deleteTodoList(todoListId)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(dellTodolistSuccess(todoListId));
+            }
+        });
+};
+
+export const setTasks = (todoListId) => (dispatch, getState) => {
+    api.getTasks(todoListId)
+        .then(res => {
+            if (!res.error) {
+                dispatch(setTasksSuccess(todoListId, res.items));
+            }
+        });
+};
+
+export const changeTodoList = (todoListId, title) => (dispatch, getState) => {
+    api.updateTodolistTitle(todoListId, title)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(changeTodoListSuccess(todoListId, title));
+            }
+        });
+};

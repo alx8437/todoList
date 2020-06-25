@@ -35,8 +35,7 @@ class TodoListTask extends React.Component {
     }
 
     dellTask = () => {
-        let taskID = this.props.task.id
-        this.props.dellTask(taskID)
+        this.props.dellTask(this.props.task.id)
     }
 
 
