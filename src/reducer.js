@@ -41,7 +41,6 @@ export const reducer = (state = initialState, action) => {
                         return {
                             ...tl,
                             tasks: tl.tasks.map(task => {
-                                debugger
                                 if (task.id !== action.task.id) {
                                     return task;
                                 } else {

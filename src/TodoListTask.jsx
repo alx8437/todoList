@@ -1,4 +1,5 @@
 import React from 'react';
+import CloseButton from "./CloseButton";
 
 class TodoListTask extends React.Component {
 
@@ -64,7 +65,7 @@ class TodoListTask extends React.Component {
                             {this.props.task.id} - {this.props.task.title}: {this.props.task.priority}
                     </span>
                     }
-                    <span onClick={this.dellTask} className={"dellTask"}>del</span>
+                    <CloseButton dellEntity={this.dellTask}/>
                 </div>
             </div>
         )

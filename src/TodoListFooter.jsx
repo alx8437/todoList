@@ -15,9 +15,9 @@ class TodoListFooter extends React.Component {
 
     render = () => {
 
-        let classForAll = this.props.filterValue === "All" ? "filter-active" : "";
-        let classForCompleted = this.props.filterValue === "Completed" ? "filter-active" : "";
-        let classForActive = this.props.filterValue === "Active" ? "filter-active" : "";
+        let classForAll = this.props.filterValue === "All" ? "filter-active" : "button";
+        let classForCompleted = this.props.filterValue === "Completed" ? "filter-active" : "button";
+        let classForActive = this.props.filterValue === "Active" ? "filter-active" : "button";
 
         return (
             <div className="todoList-footer">
@@ -36,8 +36,10 @@ class TodoListFooter extends React.Component {
                     >Active
                     </button>
                 </div>}
-                <span className="hideFooterButton" onClick={this.onHideFiltersClick}>show</span>
-                <span className="hideFooterButton" onClick={this.onShowFiltersClick}>hide</span>
+                <div className={"showHideTask"}>
+                    <button className="button" onClick={this.onHideFiltersClick}>show</button>
+                    <button className="button" onClick={this.onShowFiltersClick}>hide</button>
+                </div>
             </div>
 
         )

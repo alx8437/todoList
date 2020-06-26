@@ -1,4 +1,5 @@
 import React from 'react';
+import CloseButton from "./CloseButton";
 
 class TodoListTitle extends React.Component {
 
@@ -37,7 +38,7 @@ class TodoListTitle extends React.Component {
     render = () => {
 
         return (
-            <div className="todoList-header">
+            <div className="todoList-title">
                 {this.state.editMode ?
                     <input
                         value={this.state.title}
@@ -48,7 +49,7 @@ class TodoListTitle extends React.Component {
                     />
                     : <h3 className="todoList-header__title" onClick={this.isEditModeActivated}>{this.props.title}</h3>
                 }
-                <span onClick={this.dellTodoList} className="dellTask">del</span>
+                <CloseButton dellEntity={this.dellTodoList}/>
             </div>
         )
     }
