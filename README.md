@@ -1,3 +1,11 @@
+!!! Для Ajax запросов и работы с API ! Т.к. логинизация организована с помощью cookie нужно залогинится на ресурсе https://social-network.samuraijs.com/
+
+Email: free@samuraijs.com Password: free
+
+homepage": "https://alx8437.github.io/todoList
+
+
+
 Проект по добавлению задач. TodoList.
 
 Здесь реализованы следующие подходы к реализации стейт менеджмента и отображения UI:
