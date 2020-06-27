@@ -15,7 +15,7 @@ homepage": "https://alx8437.github.io/todoList
 
 2) Библиотека Redux: 
 
-3) Reduser, функция для работы сo стейтом.
+3) Reducer, функция для работы сo стейтом.
 
 4) Функция dispatch и actionCreators для диспатча экшенов в Reduser 
 
