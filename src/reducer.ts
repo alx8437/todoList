@@ -16,17 +16,12 @@ type InitialStateType = {
 }
 
 
-
-const initialState: InitialStateType  = {
+const initialState: InitialStateType = {
     todolists: [],
 };
 
 
-
-
-
-
-export const reducer = (state: InitialStateType = initialState, action) => {
+export const reducer = (state: InitialStateType = initialState, action: TodoActionTypes) => {
     switch (action.type) {
         case ADD_TODOLIST_SUCCESS:
             return {
@@ -128,19 +123,105 @@ export const reducer = (state: InitialStateType = initialState, action) => {
 
 // actionCreators
 
+type TodoActionTypes =
+    addTodoSuccessType
+    | addTaskSuccessType
+    | changeTaskSuccessType
+    | dellTaskSuccessType
+    | dellTodolistSuccessType
+    | setTodoListsSuccessType
+    | setTasksSuccessType
+    | changeTodoListSuccessType
+
+
 type addTodoSuccessType = {
-    type: string
+    type: typeof ADD_TODOLIST_SUCCESS
     newTodoList: TodoType
 }
 
-export const addTodoListSuccess = (newTodoList: TodoType) => ({type: ADD_TODOLIST_SUCCESS, newTodoList});
-export const addTaskSuccess = (todoListId: string, newTask: TaskType) => ({type: ADD_TASK_SUCCESS, todoListId, newTask});
-export const changeTaskSuccess = (task: TaskType) => ({type: CHANGE_TASK_SUCCESS, task});
-export const dellTaskSuccess = (todoListId: string, taskID: string) => ({type: DELL_TASK_SUCCESS, todoListId, taskID});
-export const dellTodolistSuccess = (todoListId: string) => ({type: DELL_TODOLIST_SUCCESS, todoListId});
-export const setTodoListsSuccess = (todolists: TodoType) => ({type: SET_TODOLIST_SUCCESS, todolists});
-export const setTasksSuccess = (todoListId: string, tasks: Array<TaskType>) => ({type: SET_TASKS_SUCCESS, tasks, todoListId});
-export const changeTodoListSuccess = (todoListId: string, title: string) => ({type: CHANGE_TODOLIST_SUCCESS, todoListId, title});
+export const addTodoListSuccess = (newTodoList: TodoType): addTodoSuccessType => ({
+    type: ADD_TODOLIST_SUCCESS,
+    newTodoList
+});
+
+type addTaskSuccessType = {
+    type: typeof ADD_TASK_SUCCESS
+    todoListId: string
+    newTask: TaskType
+}
+
+export const addTaskSuccess = (todoListId: string, newTask: TaskType): addTaskSuccessType => ({
+    type: ADD_TASK_SUCCESS,
+    todoListId,
+    newTask
+});
+
+
+type changeTaskSuccessType = {
+    type: typeof CHANGE_TASK_SUCCESS
+    task: TaskType
+}
+
+export const changeTaskSuccess = (task: TaskType): changeTaskSuccessType => ({type: CHANGE_TASK_SUCCESS, task});
+
+type dellTaskSuccessType = {
+    type: typeof DELL_TASK_SUCCESS
+    todoListId: string
+    taskID: string
+}
+
+export const dellTaskSuccess = (todoListId: string, taskID: string): dellTaskSuccessType => ({
+    type: DELL_TASK_SUCCESS,
+    todoListId,
+    taskID
+});
+
+
+type dellTodolistSuccessType = {
+    type: typeof DELL_TODOLIST_SUCCESS
+    todoListId: string
+}
+
+export const dellTodolistSuccess = (todoListId: string): dellTodolistSuccessType => ({
+    type: DELL_TODOLIST_SUCCESS,
+    todoListId
+});
+
+
+type setTodoListsSuccessType = {
+    type: typeof SET_TODOLIST_SUCCESS
+    todolists: TodoType
+}
+
+export const setTodoListsSuccess = (todolists: TodoType): setTodoListsSuccessType => ({
+    type: SET_TODOLIST_SUCCESS,
+    todolists
+});
+
+type setTasksSuccessType = {
+    type: typeof SET_TASKS_SUCCESS
+    tasks: Array<TaskType>
+    todoListId: string
+}
+
+export const setTasksSuccess = (todoListId: string, tasks: Array<TaskType>): setTasksSuccessType => ({
+    type: SET_TASKS_SUCCESS,
+    tasks,
+    todoListId
+});
+
+type changeTodoListSuccessType = {
+    type: typeof CHANGE_TODOLIST_SUCCESS,
+    todoListId: string
+    title: string
+}
+
+
+export const changeTodoListSuccess = (todoListId: string, title: string): changeTodoListSuccessType => ({
+    type: CHANGE_TODOLIST_SUCCESS,
+    todoListId,
+    title
+});
 
 
 //Thunk
