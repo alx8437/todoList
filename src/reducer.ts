@@ -1,4 +1,5 @@
 import {api} from "./api";
+import {TaskType, TodoType} from "./types/entities";
 
 const ADD_TODOLIST_SUCCESS = "ADD_TODOLIST_SUCCESS";
 const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS";
@@ -10,12 +11,22 @@ const SET_TASKS_SUCCESS = "SET_TASKS_SUCCESS";
 const CHANGE_TODOLIST_SUCCESS = "CHANGE_TODOLIST_SUCCESS";
 
 
-const initialState = {
+type InitialStateType = {
+    todolists: Array<TodoType>
+}
+
+
+
+const initialState: InitialStateType  = {
     todolists: [],
 };
 
 
-export const reducer = (state = initialState, action) => {
+
+
+
+
+export const reducer = (state: InitialStateType = initialState, action) => {
     switch (action.type) {
         case ADD_TODOLIST_SUCCESS:
             return {
@@ -117,14 +128,19 @@ export const reducer = (state = initialState, action) => {
 
 // actionCreators
 
-export const addTodoListSuccess = (newTodoList) => ({type: ADD_TODOLIST_SUCCESS, newTodoList});
-export const addTaskSuccess = (todoListId, newTask) => ({type: ADD_TASK_SUCCESS, todoListId, newTask});
-export const changeTaskSuccess = (task) => ({type: CHANGE_TASK_SUCCESS, task});
-export const dellTaskSuccess = (todoListId, taskID) => ({type: DELL_TASK_SUCCESS, todoListId, taskID});
-export const dellTodolistSuccess = (todoListId) => ({type: DELL_TODOLIST_SUCCESS, todoListId});
-export const setTodoListsSuccess = (todolists) => ({type: SET_TODOLIST_SUCCESS, todolists});
-export const setTasksSuccess = (todoListId, tasks) => ({type: SET_TASKS_SUCCESS, tasks, todoListId});
-export const changeTodoListSuccess = (todoListId, title) => ({type: CHANGE_TODOLIST_SUCCESS, todoListId, title});
+type addTodoSuccessType = {
+    type: string
+    newTodoList: TodoType
+}
+
+export const addTodoListSuccess = (newTodoList: TodoType) => ({type: ADD_TODOLIST_SUCCESS, newTodoList});
+export const addTaskSuccess = (todoListId: string, newTask: TaskType) => ({type: ADD_TASK_SUCCESS, todoListId, newTask});
+export const changeTaskSuccess = (task: TaskType) => ({type: CHANGE_TASK_SUCCESS, task});
+export const dellTaskSuccess = (todoListId: string, taskID: string) => ({type: DELL_TASK_SUCCESS, todoListId, taskID});
+export const dellTodolistSuccess = (todoListId: string) => ({type: DELL_TODOLIST_SUCCESS, todoListId});
+export const setTodoListsSuccess = (todolists: TodoType) => ({type: SET_TODOLIST_SUCCESS, todolists});
+export const setTasksSuccess = (todoListId: string, tasks: Array<TaskType>) => ({type: SET_TASKS_SUCCESS, tasks, todoListId});
+export const changeTodoListSuccess = (todoListId: string, title: string) => ({type: CHANGE_TODOLIST_SUCCESS, todoListId, title});
 
 
 //Thunk
